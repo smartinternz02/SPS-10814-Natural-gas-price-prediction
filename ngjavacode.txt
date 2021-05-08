@@ -1,0 +1,59 @@
+package org.ng1;
+import java.io.IOException;
+
+import tech.tablesaw.api.Table;
+import tech.tablesaw.plotly.Plot;
+import tech.tablesaw.plotly.components.Figure;
+import tech.tablesaw.plotly.components.Layout;
+import tech.tablesaw.plotly.traces.BoxTrace;
+import tech.tablesaw.plotly.traces.HistogramTrace;
+
+public class DataScience {
+	public static void main(String args[])
+	{
+		System.out.println("Natural gas price prediction");
+		try {
+			Table naturalgas=Table.read().csv("C:\\Users\\Anjali\\eclipse-workspace\\org.ng1\\src\\main\\java\\org\\ng1\\ngasmodified1.csv");
+			System.out.println(naturalgas.shape());
+			System.out.println(naturalgas.first(5));
+			System.out.println(naturalgas.last(5));
+			System.out.println(naturalgas.structure());
+			System.out.println(naturalgas.summary());
+			///	histogram
+			Layout layout1=Layout.builder().title("distribution of price").build();
+			HistogramTrace trace1=HistogramTrace.builder(naturalgas.nCol("Price")).build();
+	    	Plot.show(new Figure(layout1,trace1));
+			
+			Layout layout2=Layout.builder().title("distribution of year").build();
+			HistogramTrace trace2=HistogramTrace.builder(naturalgas.nCol("year")).build();
+			Plot.show(new Figure(layout2,trace2));
+			
+			Layout layout3=Layout.builder().title("distribution of month").build();
+			HistogramTrace trace3=HistogramTrace.builder(naturalgas.nCol("month")).build();
+			Plot.show(new Figure(layout3,trace3));
+			
+			Layout layout4=Layout.builder().title("distribution of day").build();
+			HistogramTrace trace4=HistogramTrace.builder(naturalgas.nCol("day")).build();
+			Plot.show(new Figure(layout4,trace4));
+			
+///boxplot    
+			Layout layout5=Layout.builder().title("price on the basis of month").build();
+		    BoxTrace trace5=BoxTrace.builder(naturalgas.categoricalColumn("month"),naturalgas.nCol("Price")).build();
+			Plot.show(new Figure(layout5,trace5));
+			
+			Layout layout6=Layout.builder().title("price on the basis of year").build();
+		    BoxTrace trace6=BoxTrace.builder(naturalgas.categoricalColumn("year"),naturalgas.nCol("Price")).build();
+			Plot.show(new Figure(layout6,trace6));
+			
+			Layout layout7=Layout.builder().title("price on the basis of day").build();
+		    BoxTrace trace7=BoxTrace.builder(naturalgas.categoricalColumn("day"),naturalgas.nCol("Price")).build();
+			Plot.show(new Figure(layout7,trace7));
+			
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+}
